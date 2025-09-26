@@ -1,0 +1,28 @@
+identity:
+  author: zjbjbj
+  name: cuu_pay
+  label:
+    en_US: Cuu Pay
+    zh_Hans: 酷付
+    pt_BR: Cuu Pay
+  description:
+    en_US: For personal developers to receive payments via WeChat and Alipay
+    zh_Hans: 个人开发者的工作对话流微信、支付宝收款服务
+  icon: icon.svg
+tools:
+  - tools/create_order.yaml
+  - tools/query_order.yaml
+extra:
+  python:
+    source: provider/cuu_pay.py
+credentials_for_provider:
+  api_key:
+    help:
+      en_US: Please enter the API Key
+      zh_Hans: 请输入 API Key
+    label:
+      en_US: API Key
+      zh_Hans: API Key
+    required: true
+    type: secret-input
+    url: https://www.cuupay.com/register
