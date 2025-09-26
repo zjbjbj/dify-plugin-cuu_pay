@@ -1,0 +1,32 @@
+version: 0.0.3
+type: plugin
+author: zjbjbj
+name: cuu_pay
+label:
+  en_US: Cuu Pay
+  zh_Hans: 酷付
+description:
+  en_US: Personal Developer's Workflow Aggregated Payment Service (supporting Wechat and Alipay)
+  zh_Hans: 个人开发者的工作对话流聚合收款服务（支持微信、支付宝）
+icon: icon.svg
+resource:
+  memory: 134217728
+  permission:
+    storage:
+      enabled: true
+      size: 1048576
+plugins:
+  tools:
+    - provider/cuu_pay.yaml
+meta:
+  version: 0.0.1
+  arch:
+    - amd64
+    - arm64
+  runner:
+    language: python
+    version: "3.12"
+    entrypoint: main
+created_at: 2025-09-016T09:00:41.890123463+08:00
+privacy: PRIVACY.md
+verified: false
