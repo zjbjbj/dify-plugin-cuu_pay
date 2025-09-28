@@ -13,7 +13,7 @@ from dify_plugin.errors.tool import ToolProviderCredentialValidationError
 
 class PayProvider(ToolProvider):
 
-    def _url_to_qr_code_base64(url):
+    def _url_to_qr_code_base64(self,url):
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,

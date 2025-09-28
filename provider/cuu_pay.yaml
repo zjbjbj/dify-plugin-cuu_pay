@@ -16,6 +16,17 @@ extra:
   python:
     source: provider/cuu_pay.py
 credentials_for_provider:
+
+  uid:
+    help:
+      en_US: Please enter the uid
+      zh_Hans: 请输入 uid
+    label:
+      en_US: uid
+      zh_Hans: uid
+    required: true
+    type: text-input
+    url: https://www.cuupay.com/register
   api_key:
     help:
       en_US: Please enter the API Key
@@ -26,3 +37,12 @@ credentials_for_provider:
     required: true
     type: secret-input
     url: https://www.cuupay.com/register
+  notify_url:
+    help:
+      en_US: Please enter the notify_url
+      zh_Hans: 请输入 回调地址
+    label:
+      en_US: 回调地址
+      zh_Hans: notify_url
+    required: true
+    type: text-input
