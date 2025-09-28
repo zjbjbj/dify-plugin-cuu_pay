@@ -10,7 +10,6 @@ from io import BytesIO
 import base64
 import uuid
 from dify_plugin.config.logger_format import plugin_logger_handler
-import httpx
 from dify_plugin import Tool
 from dify_plugin.entities.tool import ToolInvokeMessage
 
@@ -28,8 +27,8 @@ class CreateOrderTool(Tool):
                 raise ValueError(f"金额 {money} 小数位数超过2位")
         except (decimal.InvalidOperation, TypeError):
             raise ValueError(f"无效的金额格式: {money}")
-        return int(money_decimal * 100)
-    def _url_to_qr_code_base64(url):
+        return money_decimal
+    def _url_to_qr_code_base64(self,url):
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
@@ -51,6 +50,12 @@ class CreateOrderTool(Tool):
         money = self._get_money(tool_parameters.get("money"))
         title = tool_parameters.get("title")
         type = tool_parameters.get("type")
+        if type == "微信":
+            pay_type = "wxpay"
+        elif type == "支付宝":
+            pay_type = "alipay"
+        else:
+            raise ValueError(f"不支持的支付类型: {type}")
         if len(title) > 100:
             raise ValueError(f"订单标题长度 {len(title)}， 超过100个字符")
         desc = tool_parameters.get("desc")
@@ -65,7 +70,7 @@ class CreateOrderTool(Tool):
             "remarks": desc,
             "time": int(time.time()),
             "mod": "api",
-            "type": type,
+            "type": pay_type,
             "third_trade_no": order_no,
             "notify_url": self.runtime.credentials.get("notify_url"),
             "return_url": "https://www.cuupay.com/login/qqlogin/paySuccess",

@@ -41,7 +41,7 @@ parameters:
       zh_Hans: 支付类型
     human_description:
       en_US:  Choose the payment type alipay or wxpay
-      zh_Hans: 选择支付类型支付宝或者微信支付
+      zh_Hans: 选择支付类型支付宝或者微信支付(alipay or wxpay)
     form: form
   - name: desc
     type: string
