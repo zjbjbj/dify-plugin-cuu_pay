@@ -1,0 +1,484 @@
+app:
+  description: 使用支付流程的DEMO示例
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 酷付-DEMO
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.4.0
+workflow:
+  conversation_variables:
+  - description: ''
+    id: 63221d0a-0a62-489f-957c-376d77fad0f6
+    name: status
+    selector:
+    - conversation
+    - status
+    value: 0
+    value_type: integer
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1748919463196-true-1748921921613-target
+      selected: false
+      source: '1748919463196'
+      sourceHandle: 'true'
+      target: '1748921921613'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1748921921613-source-1748919164057-target
+      selected: false
+      source: '1748921921613'
+      sourceHandle: source
+      target: '1748919164057'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: answer
+      id: 1759039082227-source-answer-target
+      selected: false
+      source: '1759039082227'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: answer
+        targetType: tool
+      id: answer-source-1759039145402-target
+      selected: false
+      source: answer
+      sourceHandle: source
+      target: '1759039145402'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: if-else
+      id: 1759039145402-source-1748919463196-target
+      selected: false
+      source: '1759039145402'
+      sourceHandle: source
+      target: '1748919463196'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: tool
+      id: 1748916923525-source-1759039082227-target
+      source: '1748916923525'
+      sourceHandle: source
+      target: '1759039082227'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - default: '1.2'
+          label: 支付金额
+          max_length: 48
+          options: []
+          required: true
+          type: number
+          variable: pay_money
+        - default: wxpay
+          label: 支付方式（alipay or wxpay）
+          max_length: 48
+          options: []
+          required: true
+          type: text-input
+          variable: pay_type
+      height: 115
+      id: '1748916923525'
+      position:
+        x: 117.3686223264175
+        y: 336
+      positionAbsolute:
+        x: 117.3686223264175
+        y: 336
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '请使用微信扫描以下二维码，并在1分钟内完成支付，支付成功后即可开始对话。
+
+
+          {{#1759039082227.files#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 136
+      id: answer
+      position:
+        x: 939
+        y: 336
+      positionAbsolute:
+        x: 939
+        y: 336
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: The unit is Yuan, between 1 and 200.
+            ja_JP: The unit is Yuan, between 1 and 200.
+            pt_BR: The unit is Yuan, between 1 and 200.
+            zh_Hans: 以元为单位，1元至200元之间。例如1.25
+          label:
+            en_US: Order Price
+            ja_JP: Order Price
+            pt_BR: Order Price
+            zh_Hans: 订单价格
+          llm_description: the price of the order
+          max: 200
+          min: 1
+          name: money
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: number
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: Choose a friendly order title is helpful for pay
+            ja_JP: Choose a friendly order title is helpful for pay
+            pt_BR: Choose a friendly order title is helpful for pay
+            zh_Hans: 选择一个友好的订单标题，用户更容易付款
+          label:
+            en_US: Order Title
+            ja_JP: Order Title
+            pt_BR: Order Title
+            zh_Hans: 订单标题
+          llm_description: ''
+          max: null
+          min: null
+          name: title
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: Choose the payment type alipay or wxpay
+            ja_JP: Choose the payment type alipay or wxpay
+            pt_BR: Choose the payment type alipay or wxpay
+            zh_Hans: 选择支付类型支付宝或者微信支付
+          label:
+            en_US: pay type
+            ja_JP: pay type
+            pt_BR: pay type
+            zh_Hans: 支付类型
+          llm_description: ''
+          max: null
+          min: null
+          name: type
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: The order's description
+            ja_JP: The order's description
+            pt_BR: The order's description
+            zh_Hans: 订单的详细信息描述
+          label:
+            en_US: Order Description
+            ja_JP: Order Description
+            pt_BR: Order Description
+            zh_Hans: 订单描述
+          llm_description: ''
+          max: null
+          min: null
+          name: desc
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          desc: ''
+          money: ''
+          title: ''
+          type: ''
+        provider_id: 9b3466c2-227a-4324-a562-ed8f95751eb6/cuu_pay/cuu_pay
+        provider_name: 9b3466c2-227a-4324-a562-ed8f95751eb6/cuu_pay/cuu_pay
+        provider_type: builtin
+        selected: false
+        title: 创建订单
+        tool_configurations:
+          desc:
+            type: mixed
+            value: 手机壳
+          title:
+            type: mixed
+            value: 商品
+          type:
+            type: mixed
+            value: '{{#1748916923525.pay_type#}}'
+        tool_description: 使用此工具创建订单并获取支付二维码
+        tool_label: 创建订单
+        tool_name: create_order
+        tool_node_version: '2'
+        tool_parameters:
+          money:
+            type: variable
+            value:
+            - '1748916923525'
+            - pay_money
+        type: tool
+      height: 141
+      id: '1759039082227'
+      position:
+        x: 531.7836692986468
+        y: 336
+      positionAbsolute:
+        x: 531.7836692986468
+        y: 336
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: Cool，支付成功，本次付款可以进行3轮对话，尽情的使用吧！
+        desc: ''
+        selected: false
+        title: 直接回复 2
+        type: answer
+        variables: []
+      height: 117
+      id: '1748919164057'
+      position:
+        x: 939
+        y: 867.2847845587512
+      positionAbsolute:
+        x: 939
+        y: 867.2847845587512
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 73cf2577-14fa-4410-8113-0bf878aad09c
+            value: 支付成功
+            varType: string
+            variable_selector:
+            - '1759039145402'
+            - text
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 判断支付成功
+        type: if-else
+      height: 125
+      id: '1748919463196'
+      position:
+        x: 939
+        y: 607.9974734343846
+      positionAbsolute:
+        x: 939
+        y: 607.9974734343846
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Optional. If not filled, it will try to query the order number
+              according to the conversation ID.
+            ja_JP: Optional. If not filled, it will try to query the order number
+              according to the conversation ID.
+            pt_BR: Optional. If not filled, it will try to query the order number
+              according to the conversation ID.
+            zh_Hans: 选填。如果不填写，则会尝试根据会话ID查询订单号。
+          label:
+            en_US: Order Number
+            ja_JP: Order Number
+            pt_BR: Order Number
+            zh_Hans: 订单号
+          llm_description: ''
+          max: null
+          min: null
+          name: order_no
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          order_no: ''
+        provider_id: 9b3466c2-227a-4324-a562-ed8f95751eb6/cuu_pay/cuu_pay
+        provider_name: 9b3466c2-227a-4324-a562-ed8f95751eb6/cuu_pay/cuu_pay
+        provider_type: builtin
+        selected: false
+        title: 查询订单
+        tool_configurations: {}
+        tool_description: 使用此工具查询订单状态
+        tool_label: 查询订单
+        tool_name: query_order
+        tool_node_version: '2'
+        tool_parameters:
+          order_no:
+            type: mixed
+            value: '{{#1759039082227.text#}}'
+        type: tool
+      height: 53
+      id: '1759039145402'
+      position:
+        x: 939
+        y: 515
+      positionAbsolute:
+        x: 939
+        y: 515
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: constant
+          operation: set
+          value: 1
+          variable_selector:
+          - conversation
+          - status
+          write_mode: over-write
+        selected: false
+        title: 变量赋值
+        type: assigner
+        version: '2'
+      height: 85
+      id: '1748921921613'
+      position:
+        x: 939
+        y: 747.8092588445822
+      positionAbsolute:
+        x: 939
+        y: 747.8092588445822
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 215.13389950186354
+      y: -53.98797683293219
+      zoom: 0.6186296894421647
