@@ -44,7 +44,7 @@ class PayProvider(ToolProvider):
                     "type": "alipay",
                     "third_trade_no": str(credentials.get("uid")) + str(int(time.time() * 1000)),
                     "notify_url": credentials.get("notify_url"),
-                    "return_url": "https://www.cuupay.com/login/qqlogin/paySuccess",
+                    "return_url": "https://www.cuupay.com/paySuccess.html",
                     "money": Decimal(100)
                     }
 
