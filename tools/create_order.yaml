@@ -53,6 +53,17 @@ parameters:
       en_US:  The order's description
       zh_Hans: 订单的详细信息描述
     form: form
+  - name: return_url
+    type: string
+    required: false
+    label:
+      en_US: Return Url
+      zh_Hans: 跳转地址
+    human_description:
+      en_US: Payment successful and redirect to the address
+      zh_Hans: 支付成功跳转地址
+    form: form
+
 extra:
   python:
     source: tools/create_order.py
