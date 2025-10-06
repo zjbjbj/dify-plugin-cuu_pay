@@ -5,8 +5,7 @@ import time
 import hashlib
 import urllib.parse
 import decimal
-import qrcode
-from io import BytesIO
+import urllib.request
 import base64
 import uuid
 from dify_plugin.config.logger_format import plugin_logger_handler
@@ -29,22 +28,19 @@ class CreateOrderTool(Tool):
             raise ValueError(f"无效的金额格式: {money}")
         return money_decimal
     def _url_to_qr_code_base64(self,url):
-        qr = qrcode.QRCode(
-            version=1,
-            error_correction=qrcode.constants.ERROR_CORRECT_L,
-            box_size=10,
-            border=4,
-        )
-        # 添加URL数据
-        qr.add_data(url)
-        qr.make(fit=True)
-        # 生成二维码图片
-        img = qr.make_image(fill_color="black", back_color="white")
-        # 将图片转换为Base64编码
-        buffer = BytesIO()
-        img.save(buffer, format='PNG')
-        qr_code_base64 = base64.b64encode(buffer.getvalue()).decode()
-        return qr_code_base64
+        api_url = "https://api.qrserver.com/v1/create-qr-code/"
+        params = {
+            'data': url,
+            'size': "200x200"
+        }
+        query_string = urllib.parse.urlencode(params)
+        full_url = f"{api_url}?{query_string}"
+        # 获取二维码图像
+        with urllib.request.urlopen(full_url) as response:
+            image_data = response.read()
+        # 转换为base64
+        base64_data = base64.b64encode(image_data).decode('utf-8')
+        return f"data:image/png;base64,{base64_data}"
 
     def _invoke(self, tool_parameters: dict[str, Any]) -> Generator[ToolInvokeMessage]:
         money = self._get_money(tool_parameters.get("money"))
