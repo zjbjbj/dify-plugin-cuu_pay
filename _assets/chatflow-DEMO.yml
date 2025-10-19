@@ -5,7 +5,11 @@ app:
   mode: advanced-chat
   name: 酷付-DEMO
   use_icon_as_answer_icon: false
-dependencies: []
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: zjbjbj/cuu_pay:0.0.3@621b4e6f8e44cbb7e61b93215c2203c9adf6994e65e12919977e7dc541709983
 kind: app
 version: 0.4.0
 workflow:
@@ -92,11 +96,21 @@ workflow:
       zIndex: 0
     - data:
         isInLoop: false
+        sourceType: start
+        targetType: tool
+      id: 1748916923525-source-1760850468361-target
+      source: '1748916923525'
+      sourceHandle: source
+      target: '1760850468361'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
         sourceType: tool
         targetType: answer
-      id: 1759039082227-source-answer-target
-      selected: false
-      source: '1759039082227'
+      id: 1760850468361-source-answer-target
+      source: '1760850468361'
       sourceHandle: source
       target: answer
       targetHandle: target
@@ -106,11 +120,10 @@ workflow:
         isInLoop: false
         sourceType: answer
         targetType: tool
-      id: answer-source-1759039145402-target
-      selected: false
+      id: answer-source-1760850497845-target
       source: answer
       sourceHandle: source
-      target: '1759039145402'
+      target: '1760850497845'
       targetHandle: target
       type: custom
       zIndex: 0
@@ -118,22 +131,10 @@ workflow:
         isInLoop: false
         sourceType: tool
         targetType: if-else
-      id: 1759039145402-source-1748919463196-target
-      selected: false
-      source: '1759039145402'
+      id: 1760850497845-source-1748919463196-target
+      source: '1760850497845'
       sourceHandle: source
       target: '1748919463196'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: start
-        targetType: tool
-      id: 1748916923525-source-1759039082227-target
-      source: '1748916923525'
-      sourceHandle: source
-      target: '1759039082227'
       targetHandle: target
       type: custom
       zIndex: 0
@@ -144,44 +145,44 @@ workflow:
         title: 开始
         type: start
         variables:
-        - default: '1.2'
+        - default: '1'
           label: 支付金额
           max_length: 48
           options: []
           required: true
           type: number
           variable: pay_money
-        - default: wxpay
-          label: 支付方式（alipay or wxpay）
+        - default: 微信
+          label: 支付方式（微信或支付宝）
           max_length: 48
           options: []
           required: true
           type: text-input
           variable: pay_type
-      height: 115
+      height: 116
       id: '1748916923525'
       position:
-        x: 117.3686223264175
-        y: 336
+        x: 43.36825686345361
+        y: 326.1332846049381
       positionAbsolute:
-        x: 117.3686223264175
-        y: 336
+        x: 43.36825686345361
+        y: 326.1332846049381
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 244
     - data:
-        answer: '请使用微信扫描以下二维码，并在1分钟内完成支付，支付成功后即可开始对话。
+        answer: '请使用{{#1748916923525.pay_type#}}扫描以下二维码，并在1分钟内完成支付，支付成功后即可开始对话。
 
 
-          {{#1759039082227.files#}}'
+          {{#1760850468361.files#}}'
         desc: ''
         selected: false
         title: 直接回复
         type: answer
         variables: []
-      height: 136
+      height: 155
       id: answer
       position:
         x: 939
@@ -189,13 +190,13 @@ workflow:
       positionAbsolute:
         x: 939
         y: 336
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 244
     - data:
-        desc: ''
+        desc: 该节点为空则需要更改节点，从酷付插件中选择
         is_team_authorization: true
         output_schema: null
         paramSchemas:
@@ -254,7 +255,7 @@ workflow:
             en_US: Choose the payment type alipay or wxpay
             ja_JP: Choose the payment type alipay or wxpay
             pt_BR: Choose the payment type alipay or wxpay
-            zh_Hans: 选择支付类型支付宝或者微信支付
+            zh_Hans: 选择支付类型支付宝或者微信支付(alipay or wxpay)
           label:
             en_US: pay type
             ja_JP: pay type
@@ -295,13 +296,38 @@ workflow:
           scope: null
           template: null
           type: string
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: Payment successful and redirect to the address
+            ja_JP: Payment successful and redirect to the address
+            pt_BR: Payment successful and redirect to the address
+            zh_Hans: 支付成功跳转地址
+          label:
+            en_US: Return Url
+            ja_JP: Return Url
+            pt_BR: Return Url
+            zh_Hans: 跳转地址
+          llm_description: ''
+          max: null
+          min: null
+          name: return_url
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
         params:
           desc: ''
           money: ''
+          return_url: ''
           title: ''
           type: ''
-        provider_id: 9b3466c2-227a-4324-a562-ed8f95751eb6/cuu_pay/cuu_pay
-        provider_name: 9b3466c2-227a-4324-a562-ed8f95751eb6/cuu_pay/cuu_pay
+        provider_id: zjbjbj/cuu_pay/cuu_pay
+        provider_name: zjbjbj/cuu_pay/cuu_pay
         provider_type: builtin
         selected: false
         title: 创建订单
@@ -309,6 +335,9 @@ workflow:
           desc:
             type: mixed
             value: 手机壳
+          return_url:
+            type: mixed
+            value: ''
           title:
             type: mixed
             value: 商品
@@ -326,13 +355,13 @@ workflow:
             - '1748916923525'
             - pay_money
         type: tool
-      height: 141
-      id: '1759039082227'
+      height: 212
+      id: '1760850468361'
       position:
-        x: 531.7836692986468
+        x: 528.4947641669596
         y: 336
       positionAbsolute:
-        x: 531.7836692986468
+        x: 528.4947641669596
         y: 336
       selected: false
       sourcePosition: right
@@ -340,13 +369,13 @@ workflow:
       type: custom
       width: 244
     - data:
-        answer: Cool，支付成功，本次付款可以进行3轮对话，尽情的使用吧！
+        answer: 支付成功，请继续后面的流程
         desc: ''
         selected: false
         title: 直接回复 2
         type: answer
         variables: []
-      height: 117
+      height: 102
       id: '1748919164057'
       position:
         x: 939
@@ -368,7 +397,7 @@ workflow:
             value: 支付成功
             varType: string
             variable_selector:
-            - '1759039145402'
+            - '1760850497845'
             - text
           id: 'true'
           logical_operator: and
@@ -376,7 +405,7 @@ workflow:
         selected: false
         title: 判断支付成功
         type: if-else
-      height: 125
+      height: 126
       id: '1748919463196'
       position:
         x: 939
@@ -384,13 +413,13 @@ workflow:
       positionAbsolute:
         x: 939
         y: 607.9974734343846
-      selected: true
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 244
     - data:
-        desc: ''
+        desc: 该节点为空则需要更改节点，从酷付插件中选择
         is_team_authorization: true
         output_schema: null
         paramSchemas:
@@ -423,8 +452,8 @@ workflow:
           type: string
         params:
           order_no: ''
-        provider_id: 9b3466c2-227a-4324-a562-ed8f95751eb6/cuu_pay/cuu_pay
-        provider_name: 9b3466c2-227a-4324-a562-ed8f95751eb6/cuu_pay/cuu_pay
+        provider_id: zjbjbj/cuu_pay/cuu_pay
+        provider_name: zjbjbj/cuu_pay/cuu_pay
         provider_type: builtin
         selected: false
         title: 查询订单
@@ -436,16 +465,16 @@ workflow:
         tool_parameters:
           order_no:
             type: mixed
-            value: '{{#1759039082227.text#}}'
+            value: null
         type: tool
-      height: 53
-      id: '1759039145402'
+      height: 98
+      id: '1760850497845'
       position:
         x: 939
-        y: 515
+        y: 511.7110948683128
       positionAbsolute:
         x: 939
-        y: 515
+        y: 511.7110948683128
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -465,7 +494,7 @@ workflow:
         title: 变量赋值
         type: assigner
         version: '2'
-      height: 85
+      height: 86
       id: '1748921921613'
       position:
         x: 939
@@ -479,6 +508,6 @@ workflow:
       type: custom
       width: 244
     viewport:
-      x: 215.13389950186354
-      y: -53.98797683293219
-      zoom: 0.6186296894421647
+      x: 121.80048373685736
+      y: -58.413665211225634
+      zoom: 0.6081051048662984
