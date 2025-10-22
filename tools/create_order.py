@@ -20,8 +20,8 @@ class CreateOrderTool(Tool):
     def _get_money(self, money):
         try:
             money_decimal = decimal.Decimal(str(money))
-            if not (decimal.Decimal('1.00') <= money_decimal <= decimal.Decimal('200.00')):
-                raise ValueError(f"金额 {money} 超出范围 1.00-200.00")
+            if not (decimal.Decimal('1.00') <= money_decimal <= decimal.Decimal('2000.00')):
+                raise ValueError(f"金额 {money} 超出范围 1.00-2000.00")
             if money_decimal.as_tuple().exponent < -2:
                 raise ValueError(f"金额 {money} 小数位数超过2位")
         except (decimal.InvalidOperation, TypeError):
@@ -47,6 +47,7 @@ class CreateOrderTool(Tool):
         title = tool_parameters.get("title")
         type = tool_parameters.get("type")
         return_url = tool_parameters.get("return_url")
+        notify_url = self.runtime.credentials.get("notify_url")
         if type == "微信":
             pay_type = "wxpay"
         elif type == "支付宝":
@@ -60,6 +61,8 @@ class CreateOrderTool(Tool):
             raise ValueError(f"订单描述长度 {len(desc)}， 超过200个字符")
         if not return_url:
             return_url = "https://www.cuupay.com/paySuccess.html"
+        if not notify_url:
+            notify_url = "https://www.cuupay.com/login/qqlogin/isSuccess"        
         base_url = "https://www.cuupay.com/submit"
         order_no =  str(uuid.uuid4()).replace('-', '')
         payload = {
@@ -71,7 +74,7 @@ class CreateOrderTool(Tool):
             "mod": "api",
             "type": pay_type,
             "third_trade_no": order_no,
-            "notify_url": self.runtime.credentials.get("notify_url"),
+            "notify_url": notify_url,
             "return_url": return_url,
             "money":money
         }
