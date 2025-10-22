@@ -44,5 +44,5 @@ credentials_for_provider:
     label:
       en_US: 回调地址
       zh_Hans: notify_url
-    required: true
+    required: false
     type: text-input
