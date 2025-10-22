@@ -1,7 +1,7 @@
 ## Cuu Pay
 
 **Co-Author:** [zjbjbj](https://github.com/zjbjbj)  
-**Version:** 0.0.3
+**Version:** 0.0.4
 **Type:** tool  
 **Repo&Issues:** [https://github.com/zjbjbj/dify-plugin-cuu_pay](https://github.com/zjbjbj/dify-plugin-cuu_pay)
 
