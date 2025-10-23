@@ -1,7 +1,7 @@
 ## 酷付
 
 **作者:** [zjbjbj](https://github.com/zjbjbj)  
-**版本:** 0.0.4
+**版本:** 0.0.4  
 **类型:** tool  
 **代码仓库和问题反馈:** [https://github.com/zjbjbj/dify-plugin-cuu_pay](https://github.com/zjbjbj/dify-plugin-cuu_pay)
 
@@ -18,5 +18,5 @@
 
 ### 开始
 
-前往Github，下载[chatflow](https://github.com/zjbjbj/dify-plugin-cuu_pay/blob/main/_assets/chatflow-DEMO.yml)示例，导入即可使用。
+前往Github，下载[chatflow](https://github.com/zjbjbj/dify-plugin-cuu_pay/blob/main/_assets/chatflow-DEMO.yml)示例。
 国内站点 下载[chatflow](https://www.cuupay.com/static/website/chatflow-DEMO.yml)示例，导入即可使用。
