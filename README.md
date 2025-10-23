@@ -1,7 +1,7 @@
 ## Cuu Pay
 
 **Co-Author:** [zjbjbj](https://github.com/zjbjbj)  
-**Version:** 0.0.4
+**Version:** 0.0.4  
 **Type:** tool  
 **Repo&Issues:** [https://github.com/zjbjbj/dify-plugin-cuu_pay](https://github.com/zjbjbj/dify-plugin-cuu_pay)
 
@@ -17,4 +17,5 @@ This is a payment service for workflow developers, enabling individual developer
 - Support page redirection after payment is completed
 
 ### Start
-Go to Github, download the [chatflow](https://github.com/zjbjbj/dify-plugin-cuu_pay/blob/main/_assets/chatflow-DEMO.yml) example, and import it to start using.
+Go to Github, download the [chatflow](https://github.com/zjbjbj/dify-plugin-cuu_pay/blob/main/_assets/chatflow-DEMO.yml) example.
+Go to Domestic site, download the [chatflow](https://www.cuupay.com/static/website/chatflow-DEMO.yml) example, and import it to start using.
